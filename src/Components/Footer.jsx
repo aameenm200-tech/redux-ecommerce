@@ -10,7 +10,7 @@ import { FaPhoneAlt } from "react-icons/fa";
 
 function Footer() {
   return (
-    <div className="p-5" style={{ height: "280px", backgroundColor:"#0B2B26"}}>
+    <div className="p-5 text-light" style={{ height: "280px", backgroundColor:"#0B2B26"}}>
       <div className='row'>
         <div className="col-lg-3 ">
           <div className="d-flex">

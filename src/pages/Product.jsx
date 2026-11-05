@@ -13,7 +13,7 @@ function Product() {
                         <Card.Img style={{height:'300px'}} variant="top" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR9oE4LpbeiLOHJpAqYwWwlxJKqgBsLtLeH8ZsKC62sVQ&s=10" />
                         <Card.Body className='text-center'>
                             <Card.Title>Perfume</Card.Title>
-                          <Link to={`/product/:id`}  className='btn btn-info'>View More</Link>
+                          <Link to={`/product/:id`}  className='btn btn-outline-info'>View More</Link>
                         </Card.Body>
                     </Card>
 
