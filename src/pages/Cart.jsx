@@ -1,9 +1,12 @@
 import React from 'react'
 import { MdDelete } from "react-icons/md";
 import { Link } from 'react-router-dom';
+import Header from '../Components/Header';
 
 function Cart() {
   return (
+    <>
+    <Header/>
     <div className='container my-5'>
       <h1 className='pt-5 text-primary fw-bolder'>CART</h1>
       <div className="row">
@@ -52,6 +55,7 @@ function Cart() {
         </div>
       </div>
     </div>
+    </>
   )
 }
 

@@ -1,9 +1,21 @@
 import { FaStar } from "react-icons/fa";
 import React from 'react'
+import Header from "../Components/Header";
+import { useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 
 function View() {
+
+  const {id} = useParams()
+  console.log(id);
+  const {allProducts} = useSelector(state=>state.productReducer)
+  console.log(allProducts);
+  
+  
   return (
+    <>
+    <Header/>
     <div className="container my-5 pt-5">
       <div style={{height:"80vh"}} className="row">
         <div className="col-lg-6 text-center">
@@ -27,6 +39,7 @@ function View() {
 
       </div>
     </div>
+    </>
   )
 }
 

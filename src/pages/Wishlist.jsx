@@ -2,10 +2,14 @@ import React from 'react'
 import Card from 'react-bootstrap/Card';
 import { FaCartPlus } from "react-icons/fa";
 import { FaHeartCircleXmark } from "react-icons/fa6";
+import Header from '../Components/Header'
+
 
 
 function Wishlist() {
   return (
+    <>
+    <Header/>
     <div className='container my-5'>
       <h1 className='pt-5 text-primary fw-bolder'>WISHLIST</h1>
       <div className="row pt-5">
@@ -26,7 +30,9 @@ function Wishlist() {
                 </div>
             </div>
     </div>
+    </>
   )
+  
 }
 
 export default Wishlist

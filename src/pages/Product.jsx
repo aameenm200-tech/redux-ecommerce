@@ -1,19 +1,38 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import Card from 'react-bootstrap/Card';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { getAllProducts } from '../redux/slices/productSlice';
+import Header from '../Components/Header';
+import { IoChevronBack, IoChevronForward } from "react-icons/io5";
 
 function Product() {
 
 const {loading,allProducts,error} = useSelector(state=>state.productReducer)
 
 const dispatch = useDispatch()
+// pagination simple logic
+const [currentPage,setCurrentPage] = useState(1)
+const productPerPage = 8
+const totalPages = Math.ceil(allProducts?.length/productPerPage)
+const currentPageLastIndex = currentPage * productPerPage
+const currentPageFirstIndex = currentPageLastIndex - productPerPage
+const visibleProductsArray = allProducts?.slice(currentPageFirstIndex,currentPageLastIndex)
+
+const navigateNextPage = ()=>{
+    currentPage!= totalPages && setCurrentPage(currentPage+1)
+}
+
+const navigatePreviousPage = ()=>{
+    currentPage!= 1 && setCurrentPage(currentPage-1)
+}
 
 useEffect(()=>{
 dispatch(getAllProducts())
 },[])
     return (
+        <>
+        <Header insideproduct/>
         <div className='m-5'>
             {
                 loading?
@@ -23,7 +42,7 @@ dispatch(getAllProducts())
                 {/* duplicate column according to products */}
                {
                 allProducts.length>0?
-                 allProducts.map(product=>(
+                 visibleProductsArray.map(product=>(
                     <div key={product?.id} className="col-lg-3">
                     {/* cards */}
                     <Card className='shadow '>
@@ -41,7 +60,14 @@ dispatch(getAllProducts())
                }
             </div>
             }
+            <div className='text-center my-5 fw-bolder'>
+                <button onClick={navigatePreviousPage} className='btn mx-2' ><IoChevronBack /></button>
+                {currentPage} OF {totalPages}
+                <button onClick={navigateNextPage} className='btn mx-2'><IoChevronForward /></button>
+
+            </div>
         </div>
+        </>
     )
 }
 
