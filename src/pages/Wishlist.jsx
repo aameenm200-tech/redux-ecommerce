@@ -4,12 +4,31 @@ import { FaCartPlus } from "react-icons/fa";
 import { FaHeartCircleXmark } from "react-icons/fa6";
 import Header from '../Components/Header'
 import { Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { removeWislistItem } from '../redux/slices/wishlistSlice';
+import {addCart} from "../redux/slices/cartSlice"
+import Swal from "sweetalert2";
 
 
 
 function Wishlist() {
   const userWishlist = useSelector(state => state.wishlistReducer)
+    const userCart = useSelector(state=> state.cartReducer)
+  const dispatch = useDispatch()
+
+    const handleCart = (product) => {
+      // check the product already in the cart 
+      const existingItem = userCart?.find(item => item?.id==product?.id)
+      dispatch(addCart(product))
+      dispatch(removeWislistItem(product.id))
+        Swal.fire({
+          title: "success",
+          text: existingItem?`${existingItem.title} quantity increased`:"Product Added Successfully",
+          icon: "success",
+          confirmButtonText: "ok"
+        })
+     
+    }
   return (
     <>
       <Header />
@@ -29,8 +48,8 @@ function Wishlist() {
                       <Card.Body className='text-center'>
                         <Card.Title>{item?.title}</Card.Title>
                         <div className="d-flex justify-content-evenly">
-                          <button className='btn btn-danger'> <FaHeartCircleXmark className='fs-3' /> </button>
-                          <button className='btn btn-success'><FaCartPlus className=' fs-3' /> </button>
+                          <button onClick={()=>dispatch(removeWislistItem(item?.id))} className='btn btn-danger'> <FaHeartCircleXmark className='fs-3' /> </button>
+                          <button onClick={()=>handleCart(item)} className='btn btn-success'><FaCartPlus className=' fs-3' /> </button>
                         </div>
                       </Card.Body>
                     </Card>
